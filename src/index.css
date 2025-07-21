@@ -1,1 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&display=swap");
+
 @import "tailwindcss";
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.open-sans {
+  font-family: "Open Sans", sans-serif;
+}
