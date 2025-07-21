@@ -1,4 +1,4 @@
-export default function PeopleCard() {
+export default function PeopleCard({ name, id }) {
   return (
     <div className="rounded-lg border text-card-foreground shadow-sm group hover:shadow-lg transition-all duration-300 hover:scale-105 bg-[#191d24] border-[#252c37] hover:border-[#fcd34a80]/50 hover:cursor-pointer">
       <div className="p-6">
@@ -23,9 +23,9 @@ export default function PeopleCard() {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-[#feedb4] group-hover:text-[#fcd34a] transition-colors">
-                Luke Skywalker
+                {name}
               </h3>
-              <p className="text-sm text-[#94a3b8]">Character #1</p>
+              <p className="text-sm text-[#94a3b8]">Character #{id}</p>
             </div>
           </div>
           <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 group-hover:text-[#feedb4] h-9 rounded-md px-3 opacity-0 group-hover:opacity-100 transition-opacity">

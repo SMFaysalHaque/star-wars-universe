@@ -1,7 +1,38 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { PeopleContext } from "../context/PeopleContext";
 
 export default function Hero() {
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { setSearchResults, setIsSearching } = useContext(PeopleContext);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!search.trim()) return;
+
+    setLoading(true);
+    setSearchResults([]);
+    setIsSearching(true);
+
+    try {
+      const response = await axios.get(
+        `https://www.swapi.tech/api/people/?name=${search}`
+      );
+
+      if (response.data?.result?.length > 0) {
+        setSearchResults(response.data.result);
+      } else {
+        setSearchResults([]);
+      }
+    } catch (err) {
+      console.error("API error:", err);
+    } finally {
+      setLoading(false);
+      setSearch("");
+    }
+  };
+
   return (
     <div>
       <div className="bg-gradient-to-b from-[#fcd34a]/20 to-[#101418] border-b border-[#252c37]">
@@ -16,7 +47,10 @@ export default function Hero() {
             </p>
           </div>
 
-          <form className="relative w-full max-w-2xl mx-auto">
+          <form
+            onSubmit={handleSearch}
+            className="relative w-full max-w-2xl mx-auto"
+          >
             <div className="relative">
               <label htmlFor="search" className="sr-only">
                 Search Characters
@@ -50,10 +84,16 @@ export default function Hero() {
 
               <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-1">
                 <button
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:outline-none bg-[#fcd34a] hover:bg-[#feedb4]/90 hover:cursor-pointer rounded-md h-8 px-3"
+                  className={`inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:outline-none rounded-md h-8 px-3 transition-colors duration-200
+                      ${
+                        loading
+                          ? "bg-[#fcd34a]/50 text-gray-500 cursor-not-allowed"
+                          : "bg-[#fcd34a] hover:bg-[#feedb4]/90 hover:cursor-pointer"
+                      }`}
                   type="submit"
+                  disabled={loading}
                 >
-                  Search
+                  {loading ? "Searching..." : "Search"}
                 </button>
               </div>
             </div>
