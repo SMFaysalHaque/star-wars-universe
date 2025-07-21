@@ -4,7 +4,7 @@ export default function PeopleCard({ name, id }) {
       <div className="p-6">
         <div className="flex items-center justify-between group">
           <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-full bg-[#fcd34a4d]/20 flex items-center justify-center group-hover:bg-[#fcd34a4d]/30 transition-colors">
+            <div className="w-12 h-12 rounded-full bg-[#fcd34a4d]/20 flex items-center justify-center group-hover:bg-[#fcd34a4d]/30 transition-colors duration-500 ease-in-out">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -22,7 +22,7 @@ export default function PeopleCard({ name, id }) {
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-[#feedb4] group-hover:text-[#fcd34a] transition-colors">
+              <h3 className="text-lg font-semibold text-[#feedb4] group-hover:text-[#fcd34a] transition-colors duration-500 ease-in-out">
                 {name}
               </h3>
               <p className="text-sm text-[#94a3b8]">Character #{id}</p>

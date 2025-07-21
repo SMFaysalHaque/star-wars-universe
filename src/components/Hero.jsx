@@ -84,7 +84,7 @@ export default function Hero() {
 
               <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-1">
                 <button
-                  className={`inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:outline-none rounded-md h-8 px-3 transition-colors duration-200
+                  className={`inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:outline-none rounded-md h-8 px-3 transition-colors duration-500 ease-in-out
                       ${
                         loading
                           ? "bg-[#fcd34a]/50 text-gray-500 cursor-not-allowed"

@@ -54,16 +54,31 @@ export default function PeopleCardList() {
             <div className="w-12 h-12 border-[6px] border-[#fcd34a] border-t-transparent border-solid rounded-full animate-spin"></div>
           </div>
         ) : (
-          <div className="flex justify-center mb-6">
+          <div className="mb-6">
             <button
               onClick={() => {
                 clearSearch();
                 setCurrentPage(1); // Reset to page 1
                 setLoading(true);
               }}
-              className="bg-[#fcd34a] text-[#101418] hover:bg-[#feedb4]/90 px-4 py-2 rounded-md"
+              className="flex items-center gap-2 bg-[#fcd34a] text-[#101418] hover:bg-[#feedb4]/90 px-4 py-2 rounded-md transition-colors duration-500 ease-in-out hover:cursor-pointer"
             >
-              Show All Characters
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <path d="M12 19l-7-7 7-7" />
+                <path d="M19 12H5" />
+              </svg>
+              Back
             </button>
           </div>
         ))}

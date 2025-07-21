@@ -25,3 +25,17 @@ body {
 .animate-fade-in {
   animation: fade-in 0.3s ease-out 0s 1 normal forwards;
 }
+
+@keyframes plus-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(252, 211, 74, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(252, 211, 74, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: plus-glow 2s ease-in-out infinite;
+}
