@@ -5,27 +5,53 @@ import { Link, useParams } from "react-router-dom";
 export default function Character() {
   const { id } = useParams();
   const [character, setCharacter] = useState(null);
+  const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // 1. Fetch character first
   useEffect(() => {
     const fetchCharacter = async () => {
       try {
-        const response = await axios.get(
-          `https://www.swapi.tech/api/people/${id}`
-        );
-        setCharacter(response.data.result);
-        console.log("Character info:", response.data.result);
-      } catch (error) {
-        console.error("Error fetching character:", error);
-      } finally {
-        setLoading(false);
+        const res = await axios.get(`https://www.swapi.tech/api/people/${id}`);
+        setCharacter(res.data.result);
+      } catch (err) {
+        setError("Error fetching character.");
       }
     };
 
     fetchCharacter();
   }, [id]);
 
-  // Show loading indicator while data is being fetched
+  // 2. Fetch films after character is loaded
+  useEffect(() => {
+    const fetchFilmsForCharacter = async () => {
+      if (!character) return;
+
+      const characterUrl = character.properties.url;
+      console.log(typeof characterUrl, characterUrl);
+
+      try {
+        const res = await axios.get("https://www.swapi.tech/api/films");
+        const allFilms = res.data.result;
+
+        const matchedFilms = allFilms.filter((film) =>
+          film.properties.characters.includes(characterUrl)
+        );
+
+        console.log("matchedFilms", matchedFilms);
+
+        setFilms(matchedFilms);
+      } catch (err) {
+        setError("Error fetching films.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFilmsForCharacter();
+  }, [character]);
+
   if (loading) {
     return (
       <div className="text-center text-yellow-400 py-10">
@@ -34,7 +60,10 @@ export default function Character() {
     );
   }
 
-  // Handle case where character data failed to load
+  if (error) {
+    return <div className="text-center text-red-500">{error}</div>;
+  }
+
   if (!character) {
     return (
       <div className="text-center text-red-400 py-10">Character not found.</div>
@@ -51,6 +80,8 @@ export default function Character() {
     eye_color,
     skin_color,
   } = character.properties;
+
+  console.log(films);
 
   return (
     <>
@@ -265,6 +296,47 @@ export default function Character() {
           </div>
         </div>
       </div>
+
+      {/* <div className="max-w-5xl mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Films with {name}
+        </h1>
+
+        {films.length === 0 ? (
+          <div className="text-center text-gray-500">No films found.</div>
+        ) : (
+          films.map((film) => (
+            <div
+              key={film.uid}
+              className="bg-white shadow-md rounded-2xl p-6 mb-6"
+            >
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                {film.properties.title}
+              </h2>
+              <p>
+                <span className="font-medium text-gray-600">Director:</span>{" "}
+                {film.properties.director}
+              </p>
+              <p>
+                <span className="font-medium text-gray-600">Producer:</span>{" "}
+                {film.properties.producer}
+              </p>
+              <p>
+                <span className="font-medium text-gray-600">Release Date:</span>{" "}
+                {film.properties.release_date}
+              </p>
+              <div className="mt-3">
+                <h3 className="font-semibold text-gray-700 mb-1">
+                  Opening Crawl:
+                </h3>
+                <p className="whitespace-pre-line text-gray-700">
+                  {film.properties.opening_crawl}
+                </p>
+              </div>
+            </div>
+          ))
+        )}
+      </div> */}
     </>
   );
 }
