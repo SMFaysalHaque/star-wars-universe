@@ -53,7 +53,7 @@ export default function PeopleCardList() {
     >
       {isSearching &&
         (searchResults.length === 0 ? (
-          <div className="flex items-center justify-center">
+          <div className="h-[600px] flex items-center justify-center">
             <div className="w-12 h-12 border-[6px] border-[#fcd34a] border-t-transparent border-solid rounded-full animate-spin"></div>
           </div>
         ) : (

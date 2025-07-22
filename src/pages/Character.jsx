@@ -107,9 +107,6 @@ export default function Character() {
 
   if (loading) {
     return (
-      // <div className="text-center text-yellow-400 py-10">
-      //   Loading character...
-      // </div>
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-12 h-12 border-[6px] border-[#fcd34a] border-t-transparent border-solid rounded-full animate-spin"></div>
       </div>
@@ -117,12 +114,18 @@ export default function Character() {
   }
 
   if (error) {
-    return <div className="text-center text-red-500">{error}</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        {error}
+      </div>
+    );
   }
 
   if (!character || !homeWorld) {
     return (
-      <div className="text-center text-red-400 py-10">Character not found.</div>
+      <div className="min-h-screen flex items-center justify-center text-red-400 py-10">
+        Character not found.
+      </div>
     );
   }
 
