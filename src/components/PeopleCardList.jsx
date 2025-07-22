@@ -3,6 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PeopleContext } from "../context/PeopleContext";
 import PeopleCard from "./cards/PeopleCard";
+import BackForwardIcon from "./svgs/BackForwardIcon";
+import BackIcon from "./svgs/BackIcon";
+import NextIcon from "./svgs/NextIcon";
 
 export default function PeopleCardList() {
   const { searchResults, isSearching, clearSearch } = useContext(PeopleContext);
@@ -58,26 +61,12 @@ export default function PeopleCardList() {
             <button
               onClick={() => {
                 clearSearch();
-                setCurrentPage(1); // Reset to page 1
+                setCurrentPage(1);
                 setLoading(true);
               }}
               className="flex items-center gap-2 bg-[#fcd34a] text-[#101418] hover:bg-[#feedb4]/90 px-4 py-2 rounded-md transition-colors duration-500 ease-in-out hover:cursor-pointer"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <path d="M12 19l-7-7 7-7" />
-                <path d="M19 12H5" />
-              </svg>
+              <BackForwardIcon />
               Back
             </button>
           </div>
@@ -108,21 +97,13 @@ export default function PeopleCardList() {
           <button
             onClick={handlePrevious}
             disabled={currentPage === 1}
-            className={`flex items-center justify-center gap-2 rounded-md text-sm font-medium border border-[#252c37] h-10 px-4 py-2 ${
+            className={`flex items-center justify-center gap-2 rounded-md text-sm font-medium border border-[#252c37] h-10 px-4 py-2 transition-all duration-300${
               currentPage === 1
                 ? "bg-[#1f2937] text-[#6b7280] cursor-not-allowed"
-                : "bg-[#101418] hover:bg-[#fcd34a] text-[#feedb4] hover:text-[#101418]"
+                : "bg-[#101418] hover:bg-[#fcd34a] text-[#feedb4] hover:text-[#101418] hover:cursor-pointer"
             }`}
           >
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
+            <BackIcon />
             <span>Previous</span>
           </button>
 
@@ -133,22 +114,14 @@ export default function PeopleCardList() {
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}
-            className={`flex items-center justify-center gap-2 rounded-md text-sm font-medium border border-[#252c37] h-10 px-4 py-2 ${
+            className={`flex items-center justify-center gap-2 rounded-md text-sm font-medium border border-[#252c37] h-10 px-4 py-2 transition-all duration-300 ${
               currentPage === totalPages
                 ? "bg-[#1f2937] text-[#6b7280] cursor-not-allowed"
-                : "bg-[#101418] hover:bg-[#fcd34a] text-[#feedb4] hover:text-[#101418]"
+                : "bg-[#101418] hover:bg-[#fcd34a] text-[#feedb4] hover:text-[#101418] hover:cursor-pointer"
             }`}
           >
             <span>Next</span>
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <NextIcon />
           </button>
         </div>
       )}
