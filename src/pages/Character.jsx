@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import FilmCard from "../components/cards/FilmCard";
 import BackForwardIcon from "../components/svgs/BackForwardIcon";
@@ -8,8 +8,10 @@ import FilmIcon2 from "../components/svgs/FilmIcon2";
 import HomeIcon from "../components/svgs/HomeIcon";
 import RocketIcon from "../components/svgs/RocketIcon";
 import VehiclesIcon from "../components/svgs/VehiclesIcon";
+import { PeopleContext } from "../context/PeopleContext";
 
 export default function Character() {
+  const { clearSearch } = useContext(PeopleContext);
   const { id } = useParams();
   const [character, setCharacter] = useState(null);
   const [homeWorld, setHomeWorld] = useState(null);
@@ -105,8 +107,11 @@ export default function Character() {
 
   if (loading) {
     return (
-      <div className="text-center text-yellow-400 py-10">
-        Loading character...
+      // <div className="text-center text-yellow-400 py-10">
+      //   Loading character...
+      // </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-12 h-12 border-[6px] border-[#fcd34a] border-t-transparent border-solid rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -127,6 +132,9 @@ export default function Character() {
         <div className="container mx-auto px-4 py-8">
           <Link
             to="/"
+            onClick={() => {
+              clearSearch();
+            }}
             className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium bg-[#252c37] text-[#feedb4] hover:bg-[#feedb4] hover:text-[#252c37] border border-transparent h-10 px-4 py-2 mb-6 transition-colors duration-500 ease-in-out"
           >
             <BackForwardIcon />
